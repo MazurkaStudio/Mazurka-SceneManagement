@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace TheMazurkaStudio
+namespace TheMazurkaStudio.SceneManagement
 {
     [AddComponentMenu("The Mazurka Studio/Scene Management/Scene Loader")]
     public class SceneLoader : MonoBehaviour

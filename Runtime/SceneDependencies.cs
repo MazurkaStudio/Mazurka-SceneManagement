@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TheMazurkaStudio
+namespace TheMazurkaStudio.SceneManagement
 {
     [DefaultExecutionOrder(-100)]
     [AddComponentMenu("The Mazurka Studio/Scene Management/Scene Dependencies")]

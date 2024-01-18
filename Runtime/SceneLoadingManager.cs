@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TheMazurkaStudio
+namespace TheMazurkaStudio.SceneManagement
 {
     public class SceneLoadingManager : Singleton<SceneLoadingManager>
     {

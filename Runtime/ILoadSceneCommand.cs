@@ -1,9 +1,8 @@
 using System;
 using Sirenix.OdinInspector;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TheMazurkaStudio
+namespace TheMazurkaStudio.SceneManagement
 {
     public interface ILoadSceneCommand
     {
@@ -18,6 +17,19 @@ namespace TheMazurkaStudio
     [Serializable]
     public class LoadSceneCommand : ILoadSceneCommand
     {
+        public LoadSceneCommand(string[] scenesToLoad, LoadType loadType,  LoadSceneMode sceneMode)
+        {
+            this.scenesToLoad = scenesToLoad;
+            this.loadType = loadType;
+            this.sceneMode = sceneMode;
+        }
+        public LoadSceneCommand(string scenesToLoad, LoadType loadType,  LoadSceneMode sceneMode)
+        {
+            this.scenesToLoad = new [] {scenesToLoad};
+            this.loadType = loadType;
+            this.sceneMode = sceneMode;
+        }
+
         public event Action Completed; 
         
         [BoxGroup("Load Settings")] public string[] scenesToLoad;
