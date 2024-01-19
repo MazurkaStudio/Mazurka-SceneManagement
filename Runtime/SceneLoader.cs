@@ -1,20 +1,28 @@
-using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TheMazurkaStudio.SceneManagement
 {
-    [AddComponentMenu("The Mazurka Studio/Scene Management/Scene Loader")]
     public class SceneLoader : MonoBehaviour
     {
-        [SerializeField] private LoadSceneCommand _command;
+        [SerializeField] private bool loadOnStart;
+
+        [SerializeField] private SceneLoadingManager.LoadSceneParameters loadParameters =
+            new ()
+            {
+                loadSceneMode = LoadSceneMode.Additive,
+                allowSceneActivation = true,
+            };
         
-
-        [Button]
-        public void Execute()
+        private void Start()
         {
-            _command.Execute();
+            if (!loadOnStart) return;
+            
+            Execute();
         }
-    }
- 
-}
 
+        public void Execute() =>  loadParameters.Execute();
+        public void Execute(Action onCompleted) =>  loadParameters.Execute(onCompleted);
+    }
+}

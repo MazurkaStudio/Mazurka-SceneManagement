@@ -1,36 +1,35 @@
-using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TheMazurkaStudio.SceneManagement
 {
-    [DefaultExecutionOrder(-100)]
-    [AddComponentMenu("The Mazurka Studio/Scene Management/Scene Dependencies")]
+    /// <summary>
+    /// Scene dependencies auto load/unload scenes when this scene is loaded or unloaded.
+    /// </summary>
     public class SceneDependencies : MonoBehaviour
     {
-        [SerializeField] private LoadSceneCommand _sceneCommand;
-
+        [SerializeField] private string[] sceneDependencies;
+        [SerializeField] private UnloadSceneOptions unloadSceneOptions;
+        
         private void Awake()
-        { 
-           
+        {
+            new SceneLoadingManager.LoadSceneParameters()
+            {
+                scenesToLoad = sceneDependencies,
+                loadSceneMode = LoadSceneMode.Additive,
+                allowSceneActivation = true
+            }.Execute();
         }
 
-        private void Start()
+        private void OnDestroy()
         {
-            LoadAllDependencies();
-        }
-
-        public void LoadAllDependencies()
-        {
-            _sceneCommand.loadType = LoadType.Load;
-            _sceneCommand.Execute();
-        }
-   
-        public void UnloadAllDependencies()
-        {
-            _sceneCommand.loadType = LoadType.Unload;
-            _sceneCommand.Execute();
+            if (SceneLoadingManager.Instance == null) return;
+            
+            new SceneLoadingManager.UnloadSceneParameters()
+            {
+                scenesToUnload = sceneDependencies,
+                unloadSceneMode =unloadSceneOptions
+            }.Execute();
         }
     }
-
 }
-
